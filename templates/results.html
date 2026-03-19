@@ -1,0 +1,51 @@
+<!-- Template for showing the results. -->
+
+<!-- 
+    If you are not sure how to loop through
+    a list inside a template, take a look at
+    the first example in this page:
+    https://palletsprojects.com/p/jinja/
+-->
+
+{% extends "base.html" %}
+{% block content %}
+    <p>
+        <div class="row">
+                {%if curCon == None%}
+                    <div class="alert alert-primary" role="alert">There was an error with retrieving your request, please try and check your location spelling</div>
+                {% else %}
+                    <h1>Results for {{curCon.resolvedAddress}}</h1>
+                    <table>
+                        <tr>
+                            <td>
+                                <p>
+                                    Current Weather: {{curCon.currentConditions.conditions}} <br>
+                                    {{curCon.days[0].description}}
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    Current temperature: {{curCon.currentConditions.temp}}
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="{{artwork.primaryImageSmall}} "  width="400px" alt="Artwork of">
+                            </td>
+                            <td> Name of Artwork: {{artwork.title}} <br> 
+                                Artist: 
+                                {%if artwork.artistDisplayName == None%}
+                                    Unknown
+                                {% else %}
+                                    {{artwork.artistDisplayName}} 
+                                {% endif %}
+                              </td>
+                        </tr>
+                    </table>
+                {% endif %}
+            <a href="{{ url_for('index') }}">Home Page</a>
+        </div>
+    </p>
+{% endblock %}
+
