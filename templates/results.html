@@ -1,12 +1,3 @@
-<!-- Template for showing the results. -->
-
-<!-- 
-    If you are not sure how to loop through
-    a list inside a template, take a look at
-    the first example in this page:
-    https://palletsprojects.com/p/jinja/
--->
-
 {% extends "base.html" %}
 {% block content %}
     <p>
@@ -14,18 +5,20 @@
                 {%if curCon == None%}
                     <div class="alert alert-primary" role="alert">There was an error with retrieving your request, please try and check your location spelling</div>
                 {% else %}
-                    <h1>Results for {{curCon.resolvedAddress}}</h1>
+                    <h3>Weather for {{curCon.resolvedAddress}}</h3>
                     <table>
                         <tr>
                             <td>
                                 <p>
-                                    Current Weather: {{curCon.currentConditions.conditions}} <br>
+                                    <b>Current Weather</b>: {{curCon.currentConditions.conditions}} <br>
                                     {{curCon.days[0].description}}
                                 </p>
                             </td>
                             <td>
                                 <p>
-                                    Current temperature: {{curCon.currentConditions.temp}}
+                                    <b>Current Temp</b>: {{curCon.currentConditions.temp}} <span>&#176;</span>{{degree}}<br>
+                                    <b>Max Temp</b>: {{curCon.days[0].tempmax}} <span>&#176;</span>{{degree}} <br>
+                                    <b>Min Temp</b>: {{curCon.days[0].tempmin}} <span>&#176;</span>{{degree}}
                                 </p>
                             </td>
                         </tr>
@@ -33,18 +26,22 @@
                             <td>
                                 <img src="{{artwork.primaryImageSmall}} "  width="400px" alt="Artwork of">
                             </td>
-                            <td> Name of Artwork: {{artwork.title}} <br> 
+                            <td> <i>{{artwork.title}}</i>, {{artwork.objectDate}} <br> 
+                                {{artwork.medium}}
+                                <br>
                                 Artist: 
-                                {%if artwork.artistDisplayName == None%}
+                                {%if artwork.artistDisplayName == ""%}
                                     Unknown
                                 {% else %}
                                     {{artwork.artistDisplayName}} 
                                 {% endif %}
+                                <br>
+                                <a href="{{ artwork.objectURL }}">Click here to learn more about this art piece at the MET</a>
                               </td>
                         </tr>
                     </table>
                 {% endif %}
-            <a href="{{ url_for('index') }}">Home Page</a>
+            <a href="{{ url_for('index') }}">Want to check another area? Click here to go back to the Home Page</a>
         </div>
     </p>
 {% endblock %}

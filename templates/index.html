@@ -1,13 +1,18 @@
 <!-- Template containing the form  -->
 {% extends "base.html" %}
 {% block content %}
-    <h6>
-        Please input a location to find the weather and an artowrk that matches it. Please replace any spaces in the name with underscores or a period.
-    </h6>
+    <p>
+        Please input a location to find the weather and an artwork that matches it. Please replace any spaces in the name with underscores or a period.
+    </p>
     <form action='{{url_for("results_page")}}' method="post">
         <p>
-            <label for="name">Place</label><br>
+            <label for="name">Place: </label>
             <input type="text" id="place" name="user_location">
+            <label for="name">Units: </label>
+            <select id="units" name="unit">
+                <option value="us">Fahrenheit</option>
+                <option value="metric">Celcius</option>
+                <option value="base">Kelvin</option>
         </p>
         {# </p>
             <label for="number">Number of results</label><br>
